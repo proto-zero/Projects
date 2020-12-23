@@ -2,13 +2,13 @@
 class Starship
 
 # Ship Variables
-# ADD SENSORS,
   def initialize
     @shields    = false
     @phasers    = false
     @photons    = false
     @alert      = 'No Alert'
     @engines    = 'Full Stop'
+    @sensors    = []
     @shipname   = ''
     @captname   = ''
     @lw         = 60
@@ -60,6 +60,12 @@ class Starship
     puts 'Alert:                ' + @alert
     puts 'Engines:              ' + @engines
 
+    if @sensors == []
+      puts 'Sensors               None Selected'
+    else
+      puts 'Sensors:              ' + @sensors.join(', ')
+    end
+
     select
   end
 
@@ -67,7 +73,7 @@ class Starship
   def select
     puts
     puts 'Select System:'
-    puts 'Phasers, Torpedoes, Shields, Alerts, Engines, Exit'
+    puts 'Phasers, Torpedoes, Shields, Alerts, Engines, Sensors, Exit'
     answer = gets.chomp.downcase
 
     while answer != 'exit'
@@ -160,16 +166,16 @@ class Starship
             puts 'Impulse Engines at Full Stop.'.center @lw
             @engines = 'Full Stop'
           elsif response3 == '1/3'
-            puts 'Impulse Engines at 1/3.'
+            puts 'Impulse Engines at 1/3.'.center @lw
             @engines = ' 1/3 Impulse'
           elsif response3 == '1/2'
-            puts 'Impulse Engines at 1/2.'
+            puts 'Impulse Engines at 1/2.'.center @lw
             @engines = '  1/2 Impulse'
           elsif response3 == '2/3'
-            puts 'Impulse Engines at 2/3.'
+            puts 'Impulse Engines at 2/3.'.center @lw
             @engines = '    2/3 Impulse'
           elsif response3 == 'full impulse'
-            puts 'Impulse Engines All Ahead Full.'
+            puts 'Impulse Engines All Ahead Full.'.center @lw
             @engines = '      Full Impulse'
           end
 
@@ -190,6 +196,32 @@ class Starship
           puts 'Warp Engines Engaged.'.center @lw
           puts ('Now at Warp ' + response4.to_s + '.').center @lw
           @engines = '       Warp ' + response4.to_s
+        end
+
+# Sensors
+      elsif answer.include?('sensor')
+        sensorlist = ['Antiproton Beam', 'Geological Scan', 'High Resolution Scan', 'Internal Scan',
+                      'Long Range Sensor Scan', 'Magneton Scan', 'Navigational Scan',
+                      'Multiphasic Scan', 'Subspace Differential Pulse', 'Inverse Tachyon Pulse']
+        puts 'Select Sensor Array:'
+        sensorlist.each do |x|
+          puts x
+        end
+        puts
+        response4 = (gets.chomp).split.map(&:capitalize).join(' ')
+
+        while !sensorlist.include?(response4)
+          puts 'Command Not Recognized.'.center @lw
+          response4 = (gets.chomp).split.map(&:capitalize).join(' ')
+        end
+        puts
+
+        if !@sensors.include?(response4)
+          puts (response4 + ' Activated.').center @lw
+          @sensors.push(response4)
+        elsif @sensors.include?(response4)
+          puts (response4 + ' Deactivated.').center @lw
+          @sensors.delete(response4)
         end
 
 # Else
