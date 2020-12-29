@@ -7,9 +7,9 @@ class Baseline
 
 # Start-up Screen
     puts 'Enter your name:'
-    name = gets.chomp.capitalize
+    @name = gets.chomp.capitalize
     system("clear")
-    puts 'Officer ' + name + ', let\'s begin.'
+    puts 'Officer ' + @name + ', let\'s begin.'
     puts 'Ready?'
     response = gets.chomp.capitalize
 
@@ -70,7 +70,79 @@ class Baseline
     end
   end
 
-# Question Texts
+  def question5 x
+    system("clear")
+    puts x
+    answer7 = gets.chomp.downcase
+    if answer7 == 'dreadfully'
+      @score = @score + 1
+    end
+  end
+
+  def question6 x
+    system("clear")
+    puts x
+    answer8 = gets.chomp.downcase
+    if answer8 == 'distinct'
+      @score = @score + 1
+    end
+  end
+
+  def question7 x
+    system("clear")
+    puts x
+    answer9 = gets.chomp.downcase
+    if answer9 == 'dreadfully distinct'
+      @score = @score + 1
+    end
+  end
+
+  def question8 x
+    system("clear")
+    puts x
+    answer10 = gets.chomp.downcase
+    if answer10 == 'dark'
+      @score = @score + 1
+    end
+  end
+
+  def question9 x
+    system("clear")
+    puts x
+    answer11 = gets.chomp.downcase
+    if answer11 == 'within one stem'
+      @score = @score + 1
+    end
+  end
+
+  def question10 x
+    system("clear")
+    puts x
+    answer12 = gets.chomp.downcase
+    if answer12 == 'and dreadfully distinct'
+      @score = @score + 1
+    end
+  end
+
+  def question11 x
+    system("clear")
+    puts x
+    answer13 = gets.chomp.downcase
+    if answer13 == 'against the dark'
+      @score = @score + 1
+    end
+  end
+
+  def question12 x
+    system("clear")
+    puts x
+    answer14 = gets.chomp.downcase
+    if answer14 == 'a tall white fountain played'
+      @score = @score + 1
+    end
+  end
+
+# Opening Questions Text
   def questions
     question1 'Cells.'
     question1 'Have you ever been in an institution? Cells.'
@@ -79,6 +151,17 @@ class Baseline
 
     question2 'Interlinked.'
     question2 'What\'s it like to hold the hand of someone you love? Interlinked.'
+
+# Divistion point between Good Questions and Rough Questions
+    if @score < 6
+      rough
+    else
+      good
+    end
+  end
+
+# Good Questions Text
+  def good
     question2 'Do they teach you how to feel, finger to finger? Interlinked.'
     question2 'Do you long for having your heart interlinked? Interlinked.'
     question2 'Do you dream about being interlinked?'
@@ -88,22 +171,39 @@ class Baseline
     question3 'Within Cells Interlinked.'
 
     question4 'Why don\'t you say that three times. Within Cells Interlinked.'
-
-    system("clear")
-    puts 'We\'re done here.'
-    puts
     total
   end
 
+# Rough Questions Text
+  def rough
+    question3 'Within Cells Interlinked.'
+    question5 'Dreadfully.'
+    question5 'What\'s it like to be filled with dread? Dreadfully.'
+    question6 'Do you like being separated from other people? Distinct.'
+    question7 'Dreadfully Distinct.'
+    question8 'Dark.'
+    question3 'Within Cells Interlinked.'
+    question9 'Within One Stem.'
+    question10 'And Dreadfully Distinct.'
+    question11 'Against The Dark.'
+    question12 'A Tall White Fountain Played.'
+    total
+  end
+
+
 # End Score Results
   def total
-    if @score >= 12
-      puts 'Constant ' + name + '. You can pick up your bonus.'
-    elsif @score < 11
+    system("clear")
+    puts 'We\'re done here.'
+    puts
+    if @score >= 15
+      puts 'Constant ' + @name + '. You can pick up your bonus.'
+    elsif @score < 15
       puts '...'
       puts 'You\'re not even close to baseline.'
     end
-    puts @score
+    puts
+    puts 'Your Score:     ' + @score.to_s
   end
 
 end
