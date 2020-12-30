@@ -14,30 +14,39 @@ class Starship
     @lw         = 60
 
 # Startup Screen
-    puts
+    system("clear")
     puts 'Bridge Systems Activated'
     puts
+    sleep 2
     puts 'Now Calibrating...'
+    sleep 1
+    5.times do puts '...'
+    end
+    sleep 1
     5.times do puts '...'
     end
     puts
+    sleep 1
     puts 'Calibration Complete'
     puts
+    sleep 3
 
 # Name Input
+    system("clear")
     puts 'Enter Ship\'s Name:'
     @shipname = gets.chomp
     puts
     puts 'Enter Captain\'s Name:'
     @captname = gets.chomp
-    puts
-    puts
-    puts ('Welcome Captain ' + @captname.capitalize + ' to the USS ' + @shipname.capitalize + '.').center @lw
-    status
+    status ('Welcome Captain ' + @captname.capitalize + ' to the USS ' + @shipname.capitalize + '.').center @lw
   end
 
 # Status Screen of Ship's Systems
-  def status
+  def status x
+    system("clear")
+    puts x.center @lw
+    puts
+    puts ('USS ' + @shipname.capitalize + ' Command Interface').center(35)
     puts
     if @phasers
       puts 'Phasers:                    Armed'
@@ -82,33 +91,33 @@ class Starship
 # Phasers
       if answer.include?('phaser')
         if @phasers
-          puts 'Phasers are Disarmed.'.center @lw
           @phasers = false
+          status 'Phasers are Disarmed.'
         else
-          puts 'Phasers are Armed and Ready.'.center @lw
           @phasers = true
+          status 'Phasers are Armed and Ready.'
         end
 
 # Torpedoes
       elsif answer.include?('torpedo')
 
         if @photons
-          puts 'Photon Torpedoes are Disarmed'.center @lw
           @photons = false
+          status 'Photon Torpedoes are Disarmed.'
         else
-          puts 'Photon Torpedoes are Armed and Ready.'.center @lw
           @photons = true
+          status 'Photon Torpedoes are Armed and Ready.'
         end
 
 # Shields
       elsif answer.include?('shield')
 
         if @shields
-          puts 'Lowering Shields.'.center @lw
           @shields = false
+          status 'Lowering Shields.'
         else
-          puts 'Raising Shields.'.center @lw
           @shields = true
+          status 'Raising Shields.'
         end
 
 # Alerts
@@ -125,14 +134,14 @@ class Starship
         puts
 
         if response == 'no alert'
-          puts 'Alert Status set to No Alert.'.center @lw
           @alert = 'No Alert'
+          status 'Alert Status set to No Alert.'
         elsif response == 'yellow alert'
-          puts 'Alert Status set to Yellow Alert.'.center @lw
           @alert = '   Yellow Alert'
+          status 'Alert Status set to Yellow Alert.'
         elsif response == 'red alert'
-          puts 'Alert Status set to Red Alert.'.center @lw
           @alert = '      Red Alert'
+          status 'Alert Status set to Red Alert.'
         end
 
 # Engines
@@ -150,9 +159,9 @@ class Starship
 
 # Impulse Engine Selection
         if response2 == 'impulse'
-          speed = ['full stop', '1/3', '1/2', '2/3', 'full impulse']
+          speed = ['full stop', '1/4', '1/3', '1/2', '2/3', 'full impulse']
           puts 'Select Impulse Speed:'
-          puts 'Full Stop, 1/3, 1/2, 2/3, Full Impulse'
+          puts 'Full Stop, 1/4, 1/3, 1/2, 2/3, Full Impulse'
           response3 = gets.chomp.downcase
 
           while !speed.include?(response3)
@@ -163,20 +172,23 @@ class Starship
 
 # Impulse Engine Speeds
           if response3 == 'full stop'
-            puts 'Impulse Engines at Full Stop.'.center @lw
             @engines = 'Full Stop'
+            status 'Impulse Engines at Full Stop.'
+          elsif response3 == '1/4'
+            @engines = ' 1/4 Impulse'
+            status 'Impulse Engines at 1/4.'
           elsif response3 == '1/3'
-            puts 'Impulse Engines at 1/3.'.center @lw
             @engines = ' 1/3 Impulse'
+            status 'Impulse Engines at 1/3.'
           elsif response3 == '1/2'
-            puts 'Impulse Engines at 1/2.'.center @lw
             @engines = '  1/2 Impulse'
+            status 'Impulse Engines at 1/2.'
           elsif response3 == '2/3'
-            puts 'Impulse Engines at 2/3.'.center @lw
             @engines = '    2/3 Impulse'
+            status 'Impulse Engines at 2/3.'
           elsif response3 == 'full impulse'
-            puts 'Impulse Engines All Ahead Full.'.center @lw
             @engines = '      Full Impulse'
+            status 'Impulse Engines All Ahead Full.'
           end
 
 # Warp Engine Selection
@@ -193,14 +205,14 @@ class Starship
           puts
 
 # Warp Engine Speeds
-          puts 'Warp Engines Engaged.'.center @lw
-          puts ('Now at Warp ' + response4.to_s + '.').center @lw
           @engines = '       Warp ' + response4.to_s
+          status ('Warp Engines Engaged.
+            Now at Warp ' + response4.to_s + '.')
         end
 
 # Sensors
       elsif answer.include?('sensor')
-        sensorlist = ['Antiproton Beam', 'Geological Scan', 'High Resolution Scan', 'Internal Scan',
+        sensorlist = ['Geological Scan', 'High Resolution Scan', 'Internal Scan',
                       'Long Range Sensor Scan', 'Magneton Scan', 'Navigational Scan',
                       'Multiphasic Scan', 'Subspace Differential Pulse', 'Inverse Tachyon Pulse']
         puts 'Select Sensor Array:'
@@ -217,19 +229,19 @@ class Starship
         puts
 
         if !@sensors.include?(response4)
-          puts (response4 + ' Activated.').center @lw
           @sensors.push(response4)
+          status (response4 + ' Activated.')
         elsif @sensors.include?(response4)
-          puts (response4 + ' Deactivated.').center @lw
           @sensors.delete(response4)
+          status (response4 + ' Deactivated.')
         end
 
 # Else
       else
         puts 'Command Not Recognized.'.center @lw
+        answer = gets.chomp.downcase
       end
 
-      status
     end
     exit
   end
