@@ -70,7 +70,7 @@ class Starship
     puts 'Engines:              ' + @engines
 
     if @sensors == []
-      puts 'Sensors               None Selected'
+      puts 'Sensors:              None Selected'
     else
       puts 'Sensors:              ' + @sensors.join(', ')
     end
@@ -86,7 +86,6 @@ class Starship
     answer = gets.chomp.downcase
 
     while answer != 'exit'
-      puts
 
 # Phasers
       if answer.include?('phaser')
@@ -123,15 +122,16 @@ class Starship
 # Alerts
       elsif answer.include?('alert')
         alerts = ['no alert', 'yellow alert', 'red alert']
+        puts
         puts 'Select Alert Status:'
         puts 'No Alert, Yellow Alert, Red Alert'
         response = gets.chomp.downcase
 
         while !alerts.include?(response)
+          puts
           puts 'Command Not Recognized.'.center @lw
           response = gets.chomp.downcase
         end
-        puts
 
         if response == 'no alert'
           @alert = 'No Alert'
@@ -147,24 +147,28 @@ class Starship
 # Engines
       elsif answer.include?('engine')
         engines = ['impulse', 'warp']
+        puts
         puts 'Select Engine:'
         puts 'Impulse, Warp'
         response2 = gets.chomp.downcase
 
         while !engines.include?(response2)
+          puts
           puts 'Command Not Recognized.'.center @lw
           response2 = gets.chomp.downcase
         end
-        puts
+
 
 # Impulse Engine Selection
         if response2 == 'impulse'
           speed = ['full stop', '1/4', '1/3', '1/2', '2/3', 'full impulse']
+          puts
           puts 'Select Impulse Speed:'
           puts 'Full Stop, 1/4, 1/3, 1/2, 2/3, Full Impulse'
           response3 = gets.chomp.downcase
 
           while !speed.include?(response3)
+            puts
             puts 'Command Not Recognized.'.center @lw
             response3 = gets.chomp.downcase
           end
@@ -194,11 +198,13 @@ class Starship
 # Warp Engine Selection
         elsif response2 == 'warp'
           warp = 1..9
+          puts
           puts 'Select Warp Speed:'
           puts '1 - 9'
           response4 = gets.chomp.to_i
 
           while !warp.include?(response4)
+            puts
             puts 'Command Not Recognized.'.center @lw
             response4 = gets.chomp.to_i
           end
@@ -215,6 +221,7 @@ class Starship
         sensorlist = ['Geological Scan', 'High Resolution Scan', 'Internal Scan',
                       'Long Range Sensor Scan', 'Magneton Scan', 'Navigational Scan',
                       'Multiphasic Scan', 'Subspace Differential Pulse', 'Inverse Tachyon Pulse']
+                      puts
         puts 'Select Sensor Array:'
         sensorlist.each do |x|
           puts x
@@ -223,10 +230,10 @@ class Starship
         response4 = (gets.chomp).split.map(&:capitalize).join(' ')
 
         while !sensorlist.include?(response4)
+          puts
           puts 'Command Not Recognized.'.center @lw
           response4 = (gets.chomp).split.map(&:capitalize).join(' ')
         end
-        puts
 
         if !@sensors.include?(response4)
           @sensors.push(response4)
@@ -238,6 +245,7 @@ class Starship
 
 # Else
       else
+        puts
         puts 'Command Not Recognized.'.center @lw
         answer = gets.chomp.downcase
       end
