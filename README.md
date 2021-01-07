@@ -1,9 +1,10 @@
 # Projects
-Personal Work
+
+## Personal Work
 
 A collection of fun projects I created while learning the Ruby Language
 
-Projects:
+## Projects:
 
 baseline.rb                        - The Baseline Test from Blade Runner 2049
 
